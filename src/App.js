@@ -1,17 +1,17 @@
-import React, {useState, useEffect, useRef} from "react"
-import useWordGame from "./useWordGame"
+import React from 'react';
+import useWordGame from './useWordGame';
 
-function App() {
+function App () {
     const {
-        textBoxRef, 
-        handleChange, 
-        text, 
-        isTimeRunning, 
-        timeRemaining, 
-        startGame, 
+        textBoxRef,
+        handleChange,
+        text,
+        isTimeRunning,
+        timeRemaining,
+        startGame,
         wordCount
-    } = useWordGame(5)
-    
+    } = useWordGame(5);
+
     return (
         <div>
             <h1>How fast do you type?</h1>
@@ -22,15 +22,12 @@ function App() {
                 disabled={!isTimeRunning}
             />
             <h4>Time remaining: {timeRemaining}</h4>
-            <button 
-                onClick={startGame}
-                disabled={isTimeRunning}
-            >
-                Start
+            <button onClick={startGame} disabled={isTimeRunning}>
+        Start
             </button>
             <h1>Word count: {wordCount}</h1>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
