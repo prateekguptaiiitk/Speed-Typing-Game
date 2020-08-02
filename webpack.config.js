@@ -1,15 +1,19 @@
 const webpack = require('webpack');
+const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const port = process.env.PORT || 3000;
 
 module.exports = {
   // Webpack configuration goes here
+  devtool: 'inline-source-map',
   mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.[hash].js',
-    publicPath: '/'
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   resolve: {
     alias: {
@@ -19,26 +23,28 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     rules: [
-
       // First Rule
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
-      }
+        use: ['babel-loader', 'eslint-loader']
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: path.resolve('./index.html'),
     })
   ],
   devServer: {
-    host: 'localhost',
-    port: port,
-    historyApiFallback: true,
-    open: true,
-    hot: true
+    contentBase: "./build",
   }
 };
